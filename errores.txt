@@ -1,0 +1,138 @@
+feb 02, 2015 4:59:32 PM facedetection.Bitacora registarEnBitacora
+SEVERE: {"error": "Failed to grab locks for 815269320, please re-issue request."}: No se pudo subir el archivo a Dropbox
+feb 02, 2015 5:04:14 PM facedetection.Bitacora registarEnBitacora
+INFO: Solicitud DETECT: {"url":"https://www.dropbox.com/s/ilill1w9bg6j5de/camera11.jpg?dl=1","gallery_name":"TNtest","minHeadScale":".0625","threshold":"0.7","selector":"SETPOSE"}
+feb 02, 2015 5:04:14 PM facedetection.Bitacora registarEnBitacora
+SEVERE: 200 OK - Message: no faces found in the image, ErrCode: 5002
+feb 02, 2015 5:05:23 PM facedetection.Bitacora registarEnBitacora
+SEVERE: java.net.SocketTimeoutException: Read timed out: No se pudo subir el archivo a Dropbox
+feb 03, 2015 10:04:36 AM facedetection.Bitacora registarEnBitacora
+SEVERE: java.net.UnknownHostException: api-content.dropbox.com: No se pudo subir el archivo a Dropbox
+feb 03, 2015 10:04:36 AM facedetection.Bitacora registarEnBitacora
+SEVERE: java.net.UnknownHostException: api-content.dropbox.com: No se pudo subir el archivo a Dropbox
+feb 03, 2015 10:04:36 AM facedetection.Bitacora registarEnBitacora
+SEVERE: java.net.UnknownHostException: api-content.dropbox.com: No se pudo subir el archivo a Dropbox
+feb 03, 2015 10:04:36 AM facedetection.Bitacora registarEnBitacora
+SEVERE: java.net.UnknownHostException: api-content.dropbox.com: No se pudo subir el archivo a Dropbox
+feb 03, 2015 10:04:36 AM facedetection.Bitacora registarEnBitacora
+SEVERE: java.net.UnknownHostException: api-content.dropbox.com: No se pudo subir el archivo a Dropbox
+feb 03, 2015 10:04:36 AM facedetection.Bitacora registarEnBitacora
+SEVERE: java.net.UnknownHostException: api-content.dropbox.com: No se pudo subir el archivo a Dropbox
+feb 03, 2015 10:04:36 AM facedetection.Bitacora registarEnBitacora
+SEVERE: java.net.UnknownHostException: api-content.dropbox.com: No se pudo subir el archivo a Dropbox
+feb 03, 2015 10:04:36 AM facedetection.Bitacora registarEnBitacora
+SEVERE: java.net.UnknownHostException: api-content.dropbox.com: No se pudo subir el archivo a Dropbox
+feb 03, 2015 10:04:36 AM facedetection.Bitacora registarEnBitacora
+SEVERE: java.net.UnknownHostException: api-content.dropbox.com: No se pudo subir el archivo a Dropbox
+feb 03, 2015 10:04:36 AM facedetection.Bitacora registarEnBitacora
+SEVERE: java.net.UnknownHostException: api-content.dropbox.com: No se pudo subir el archivo a Dropbox
+feb 03, 2015 10:04:36 AM facedetection.Bitacora registarEnBitacora
+SEVERE: java.net.UnknownHostException: api-content.dropbox.com: No se pudo subir el archivo a Dropbox
+feb 03, 2015 10:04:36 AM facedetection.Bitacora registarEnBitacora
+SEVERE: java.net.UnknownHostException: api-content.dropbox.com: No se pudo subir el archivo a Dropbox
+feb 03, 2015 10:04:36 AM facedetection.Bitacora registarEnBitacora
+SEVERE: java.net.UnknownHostException: api-content.dropbox.com: No se pudo subir el archivo a Dropbox
+feb 03, 2015 10:04:36 AM facedetection.Bitacora registarEnBitacora
+SEVERE: java.net.UnknownHostException: api.dropbox.com: No se pudo crear la URL  del archvio Dropbox /camera5.jpg
+feb 03, 2015 10:04:36 AM facedetection.Bitacora registarEnBitacora
+SEVERE: java.net.UnknownHostException: api.dropbox.com: No se pudo crear la URL  del archvio Dropbox /camera1.jpg
+feb 03, 2015 10:04:36 AM facedetection.Bitacora registarEnBitacora
+SEVERE: java.net.UnknownHostException: api.dropbox.com: No se pudo crear la URL  del archvio Dropbox /camera8.jpg
+feb 03, 2015 10:04:36 AM facedetection.Bitacora registarEnBitacora
+SEVERE: java.net.UnknownHostException: api.dropbox.com: No se pudo crear la URL  del archvio Dropbox /camera0.jpg
+feb 03, 2015 10:04:36 AM facedetection.Bitacora registarEnBitacora
+SEVERE: java.net.UnknownHostException: api.dropbox.com: No se pudo crear la URL  del archvio Dropbox /camera3.jpg
+feb 03, 2015 10:04:36 AM facedetection.Bitacora registarEnBitacora
+SEVERE: java.net.UnknownHostException: api.dropbox.com: No se pudo crear la URL  del archvio Dropbox /camera9.jpg
+feb 03, 2015 10:04:36 AM facedetection.Bitacora registarEnBitacora
+SEVERE: java.net.UnknownHostException: api.dropbox.com: No se pudo crear la URL  del archvio Dropbox /camera10.jpg
+feb 03, 2015 10:04:36 AM facedetection.Bitacora registarEnBitacora
+SEVERE: java.net.UnknownHostException: api.dropbox.com: No se pudo crear la URL  del archvio Dropbox /camera12.jpg
+feb 03, 2015 10:10:15 AM facedetection.Bitacora registarEnBitacora
+SEVERE: {"error": "Failed to grab locks for 815269320, please re-issue request."}: No se pudo subir el archivo a Dropbox
+feb 03, 2015 10:10:42 AM facedetection.Bitacora registarEnBitacora
+SEVERE: java.net.SocketTimeoutException: Read timed out: No se pudo subir el archivo a Dropbox
+feb 03, 2015 10:10:42 AM facedetection.Bitacora registarEnBitacora
+INFO: Solicitud DETECT: {"url":"https://www.dropbox.com/s/86coz2o3lsrkrrn/camera7.jpg?dl=1","gallery_name":"TNtest","minHeadScale":".0625","threshold":"0.7","selector":"SETPOSE"}
+feb 03, 2015 10:10:42 AM facedetection.Bitacora registarEnBitacora
+SEVERE: 200 OK - Message: no faces found in the image, ErrCode: 5002
+feb 03, 2015 10:10:57 AM facedetection.Bitacora registarEnBitacora
+INFO: Solicitud DETECT: {"url":"https://www.dropbox.com/s/ilill1w9bg6j5de/camera11.jpg?dl=1","gallery_name":"TNtest","minHeadScale":".0625","threshold":"0.7","selector":"SETPOSE"}
+feb 03, 2015 10:10:57 AM facedetection.Bitacora registarEnBitacora
+SEVERE: 200 OK - Message: no faces found in the image, ErrCode: 5002
+feb 03, 2015 10:34:05 AM facedetection.Bitacora registarEnBitacora
+SEVERE: java.net.SocketTimeoutException: Read timed out: No se pudo subir el archivo a Dropbox
+feb 03, 2015 12:20:24 PM facedetection.Bitacora registarEnBitacora
+SEVERE: {"error": "Failed to grab locks for 815269320, please re-issue request."}: No se pudo subir el archivo a Dropbox
+feb 03, 2015 4:32:27 PM facedetection.Bitacora registarEnBitacora
+INFO: Solicitud DETECT: {"url":"https://www.dropbox.com/s/aq9dcea374fw6p5/camera0.jpg?dl=1","gallery_name":"TNtest","minHeadScale":".0625","threshold":"0.7","selector":"SETPOSE"}
+feb 03, 2015 4:32:27 PM facedetection.Bitacora registarEnBitacora
+SEVERE: 200 OK - Message: no faces found in the image, ErrCode: 5002
+feb 04, 2015 3:20:13 PM facedetection.Bitacora registarEnBitacora
+SEVERE: java.net.SocketTimeoutException: Read timed out: No se pudo subir el archivo a Dropbox
+feb 04, 2015 3:20:29 PM facedetection.Bitacora registarEnBitacora
+SEVERE: java.net.SocketTimeoutException: Read timed out: No se pudo subir el archivo a Dropbox
+feb 04, 2015 3:36:16 PM facedetection.Bitacora registarEnBitacora
+SEVERE: javax.net.ssl.SSLHandshakeException: Remote host closed connection during handshake: No se pudo subir el archivo a Dropbox
+feb 04, 2015 3:36:16 PM facedetection.Bitacora registarEnBitacora
+SEVERE: javax.net.ssl.SSLHandshakeException: Remote host closed connection during handshake: No se pudo crear la URL  del archvio Dropbox /camera3.jpg
+feb 04, 2015 3:36:16 PM facedetection.Bitacora registarEnBitacora
+SEVERE: javax.net.ssl.SSLHandshakeException: Remote host closed connection during handshake: No se pudo crear la URL  del archvio Dropbox /camera0.jpg
+feb 04, 2015 3:36:17 PM facedetection.Bitacora registarEnBitacora
+SEVERE: javax.net.ssl.SSLHandshakeException: Remote host closed connection during handshake: No se pudo subir el archivo a Dropbox
+feb 04, 2015 3:36:17 PM facedetection.Bitacora registarEnBitacora
+SEVERE: javax.net.ssl.SSLHandshakeException: Remote host closed connection during handshake: No se pudo crear la URL  del archvio Dropbox /camera1.jpg
+feb 04, 2015 3:36:17 PM facedetection.Bitacora registarEnBitacora
+SEVERE: javax.net.ssl.SSLHandshakeException: Remote host closed connection during handshake: No se pudo subir el archivo a Dropbox
+feb 04, 2015 3:36:18 PM facedetection.Bitacora registarEnBitacora
+SEVERE: javax.net.ssl.SSLHandshakeException: Remote host closed connection during handshake: No se pudo subir el archivo a Dropbox
+feb 04, 2015 3:36:19 PM facedetection.Bitacora registarEnBitacora
+SEVERE: javax.net.ssl.SSLHandshakeException: Remote host closed connection during handshake: No se pudo crear la URL  del archvio Dropbox /camera4.jpg
+feb 04, 2015 3:36:20 PM facedetection.Bitacora registarEnBitacora
+SEVERE: javax.net.ssl.SSLHandshakeException: Remote host closed connection during handshake: No se pudo subir el archivo a Dropbox
+feb 04, 2015 3:36:20 PM facedetection.Bitacora registarEnBitacora
+SEVERE: javax.net.ssl.SSLHandshakeException: Remote host closed connection during handshake: No se pudo crear la URL  del archvio Dropbox /camera5.jpg
+feb 04, 2015 3:36:25 PM facedetection.Bitacora registarEnBitacora
+SEVERE: javax.net.ssl.SSLHandshakeException: Remote host closed connection during handshake: No se pudo subir el archivo a Dropbox
+feb 04, 2015 3:36:25 PM facedetection.Bitacora registarEnBitacora
+SEVERE: javax.net.ssl.SSLHandshakeException: Remote host closed connection during handshake: No se pudo crear la URL  del archvio Dropbox /camera6.jpg
+feb 04, 2015 3:36:26 PM facedetection.Bitacora registarEnBitacora
+SEVERE: javax.net.ssl.SSLHandshakeException: Remote host closed connection during handshake: No se pudo subir el archivo a Dropbox
+feb 04, 2015 3:36:26 PM facedetection.Bitacora registarEnBitacora
+SEVERE: javax.net.ssl.SSLHandshakeException: Remote host closed connection during handshake: No se pudo crear la URL  del archvio Dropbox /camera10.jpg
+feb 04, 2015 3:36:30 PM facedetection.Bitacora registarEnBitacora
+SEVERE: javax.net.ssl.SSLHandshakeException: Remote host closed connection during handshake: No se pudo subir el archivo a Dropbox
+feb 04, 2015 3:36:30 PM facedetection.Bitacora registarEnBitacora
+SEVERE: javax.net.ssl.SSLHandshakeException: Remote host closed connection during handshake: No se pudo crear la URL  del archvio Dropbox /camera7.jpg
+feb 04, 2015 3:36:32 PM facedetection.Bitacora registarEnBitacora
+SEVERE: javax.net.ssl.SSLHandshakeException: Remote host closed connection during handshake: No se pudo subir el archivo a Dropbox
+feb 04, 2015 3:36:32 PM facedetection.Bitacora registarEnBitacora
+SEVERE: javax.net.ssl.SSLHandshakeException: Remote host closed connection during handshake: No se pudo crear la URL  del archvio Dropbox /camera11.jpg
+feb 04, 2015 3:36:32 PM facedetection.Bitacora registarEnBitacora
+SEVERE: javax.net.ssl.SSLHandshakeException: Remote host closed connection during handshake: No se pudo subir el archivo a Dropbox
+feb 04, 2015 3:36:32 PM facedetection.Bitacora registarEnBitacora
+SEVERE: javax.net.ssl.SSLHandshakeException: Remote host closed connection during handshake: No se pudo crear la URL  del archvio Dropbox /camera9.jpg
+feb 04, 2015 3:36:32 PM facedetection.Bitacora registarEnBitacora
+SEVERE: javax.net.ssl.SSLHandshakeException: Remote host closed connection during handshake: No se pudo subir el archivo a Dropbox
+feb 04, 2015 3:36:33 PM facedetection.Bitacora registarEnBitacora
+SEVERE: javax.net.ssl.SSLHandshakeException: Remote host closed connection during handshake: No se pudo crear la URL  del archvio Dropbox /camera12.jpg
+feb 04, 2015 3:36:33 PM facedetection.Bitacora registarEnBitacora
+SEVERE: javax.net.ssl.SSLHandshakeException: Remote host closed connection during handshake: No se pudo subir el archivo a Dropbox
+feb 04, 2015 3:36:33 PM facedetection.Bitacora registarEnBitacora
+SEVERE: javax.net.ssl.SSLHandshakeException: Remote host closed connection during handshake: No se pudo crear la URL  del archvio Dropbox /camera8.jpg
+feb 04, 2015 3:36:38 PM facedetection.Bitacora registarEnBitacora
+SEVERE: javax.net.ssl.SSLHandshakeException: Remote host closed connection during handshake: No se pudo subir el archivo a Dropbox
+feb 04, 2015 3:36:39 PM facedetection.Bitacora registarEnBitacora
+SEVERE: javax.net.ssl.SSLHandshakeException: Remote host closed connection during handshake: No se pudo crear la URL  del archvio Dropbox /camera14.jpg
+feb 04, 2015 3:36:39 PM facedetection.Bitacora registarEnBitacora
+SEVERE: javax.net.ssl.SSLHandshakeException: Remote host closed connection during handshake: No se pudo subir el archivo a Dropbox
+feb 04, 2015 3:36:39 PM facedetection.Bitacora registarEnBitacora
+SEVERE: javax.net.ssl.SSLHandshakeException: Remote host closed connection during handshake: No se pudo crear la URL  del archvio Dropbox /camera16.jpg
+feb 04, 2015 3:36:39 PM facedetection.Bitacora registarEnBitacora
+SEVERE: javax.net.ssl.SSLHandshakeException: Remote host closed connection during handshake: No se pudo subir el archivo a Dropbox
+feb 04, 2015 3:36:39 PM facedetection.Bitacora registarEnBitacora
+SEVERE: javax.net.ssl.SSLHandshakeException: Remote host closed connection during handshake: No se pudo crear la URL  del archvio Dropbox /camera13.jpg
+feb 04, 2015 3:39:24 PM facedetection.Bitacora registarEnBitacora
+SEVERE: java.net.SocketTimeoutException: Read timed out: No se pudo subir el archivo a Dropbox
+mar 04, 2015 4:37:03 PM facedetection_ocv30.Bitacora registarEnBitacora
+SEVERE: {"error": "Failed to grab locks for 815269320, please re-issue request."}: No se pudo subir el archivo a Dropbox

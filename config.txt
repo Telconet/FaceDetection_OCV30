@@ -1,0 +1,11 @@
+secreto-dropbox = m44th47fwrn9d0t
+llave-dropbox = cuiclds3bj72a53
+id-app-kairos = 752d01e5
+llave-app-kairos = f05dd012cb70fc6256357a9aeb17af2d
+nombre-galeria = TNtest
+string-app-dbx = tnFace/1.0
+archivo-token-dbx = C:/Users/Eduardo/Documents/NetBeansProjects/FaceDetection_OCV30/token.txt
+directorio-de-trabajo = C:/Users/Eduardo/Documents/NetBeansProjects/FaceDetection_OCV30    
+ip-camaras = 172.16.5.10;172.16.5.9;172.16.5.12;172.16.5.11;172.16.5.7;172.16.5.8
+ubicacion-camaras  = biblioteca_alta;biblioteca_baja;studio;cocina;pasillo_alto;pasillo_bajo
+probabilidad-reconocimiento-cara = 0.6
