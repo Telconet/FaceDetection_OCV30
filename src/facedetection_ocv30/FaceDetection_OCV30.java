@@ -11,13 +11,14 @@ package facedetection_ocv30;
 import com.dropbox.core.DbxException;
 import java.io.File;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import org.opencv.core.*;
-import sun.awt.windows.ThemeReader;
 
 
 
@@ -25,7 +26,7 @@ public class FaceDetection_OCV30{
     
     //public static boolean personaEncontrada = false;          //solo para pruebas
     public static final Object mutex = new Object();
-   
+     
 
     /**
      * @param args the command line arguments
@@ -33,6 +34,22 @@ public class FaceDetection_OCV30{
     public static void main(String[] args) throws IOException, DbxException, InterruptedException, IllegalAccessException {
         
         int cores = Runtime.getRuntime().availableProcessors();
+        
+        //Socket...
+        InetAddress addr = InetAddress.getByName("0.0.0.0");
+        try{
+            ServerSocket socketServidor = new ServerSocket(21, 50, addr); 
+            boolean escuchar = true;
+
+            //Aceptamos conexiones de clientes...
+            while(escuchar){
+               new KKServerThread(socketServidor.accept()).start();
+            }
+        }
+        catch(IOException ex){
+            ex.printStackTrace();
+        }
+
         
         //Primero verficamos que exista el archivo de configuracion
         if(args.length == 0){
