@@ -49,10 +49,7 @@ public class Camara {
             //CV_CAP_PROP_FPS = 5
             this.camara.open(this.urlCamara);
             //this.camara.open(0);
-            System.out.println("FPS: " + this.camara.get(5));
-           
-           
-            System.out.println(this.camara.get(5));
+            System.out.println("FPS: " + this.camara.get(5)); 
         }
         
         if(!camara.isOpened()){

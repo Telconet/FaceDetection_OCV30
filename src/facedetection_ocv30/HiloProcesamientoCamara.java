@@ -5,6 +5,7 @@
 package facedetection_ocv30;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -15,7 +16,7 @@ import org.opencv.objdetect.CascadeClassifier;
  * Cada uno de estos objetos maneja una cámara.
  * @author Eduardo
  */
-public class HiloProcesamientoCamara implements Runnable {
+public class HiloProcesamientoCamara extends Thread {
     
     private String ipCamara;
     private Camara camara;
@@ -26,14 +27,21 @@ public class HiloProcesamientoCamara implements Runnable {
     private ServidorImagenes servidorImagenes;
     private DeteccionCaras clienteDeteccionCaras;
     private String ubicacion;
-    private boolean cerrarCamara;
+    private boolean camaraActiva;
+    private CascadeClassifier clasificador; 
+    private int idHiloCamara;
+    private String directorioCamara;
+    
     protected String persona;
     protected boolean personaDetectada;
     protected final Object mutex;
-    private int idHiloCamara;
-    private String directorioCamara;
     protected int hilosActivos;
     protected final Object mutexContadorHilosActivos;
+    
+    public final Object monNotificadorDeteccion;
+    public final Object monNotificadorInicioDetection;
+    public boolean deteccionEnCurso;
+    public boolean notificarFinDeteccion;
     
     
     /**
@@ -49,7 +57,7 @@ public class HiloProcesamientoCamara implements Runnable {
      * @param id 
      */
     public HiloProcesamientoCamara(String ipCamara, String directorio, String nombreGaleria, double probabilidad, ServidorImagenes servidorImagenes, DeteccionCaras clienteDeteccionCaras, 
-                                    String ubicacion, ThreadPoolExecutor ejecutor, int id){
+                                    String ubicacion, ThreadPoolExecutor ejecutor, int id) throws Exception{
         this.ipCamara = ipCamara; //rtsp://192.168.137.172/profile2/media.smp
         this.camara = null;
         this.nombreGaleria = nombreGaleria;
@@ -59,13 +67,18 @@ public class HiloProcesamientoCamara implements Runnable {
         this.clienteDeteccionCaras = clienteDeteccionCaras;
         this.ubicacion = ubicacion;
         this.ejecutor = ejecutor;
-        this.cerrarCamara = false;
         this.mutex = new Object();
         this.idHiloCamara = id;
         this.directorioCamara = directorio.trim() + "\\camara_" + ipCamara;
         this.personaDetectada = false;
         this.hilosActivos = 0;
         this.mutexContadorHilosActivos = new Object();
+        this.camaraActiva = false;       
+        this.monNotificadorDeteccion = new Object();
+        this.monNotificadorInicioDetection = new Object();
+        this.deteccionEnCurso = false;
+        this.notificarFinDeteccion = false;
+        
         
          //Verificamos que exista el directorio
         File f = new File(directorioCamara);
@@ -84,38 +97,9 @@ public class HiloProcesamientoCamara implements Runnable {
                 System.exit(-1);
             }
         }
-    }
-    
-    @Override
-    public void run(){
         
-       
-        //Para camaras Samsung SNV-7080R
-        this.camara = new Camara("rtsp://" + this.ipCamara + "/profile2/media.smp");
-               
-        //No se pudo abrir la camara...
-        if(camara == null){
-           //TODO 
-            Bitacora log = new Bitacora();
-            log.registarEnBitacora("errores_camara", "errores_camara.txt", "No se pudo abrir la camara con URL " + this.ipCamara + " ubicada en " + this.ubicacion, Bitacora.SEVERE);
-        }
-        
-        //rtsp://192.168.137.172/profile2/media.smp
-        camara.abrirCamara();      //empezara recibir datos.
-        /*while(true){
-            Mat imagen = camara.obtenerCuadro();
-            imagen.release();
-        }*/
-        int cuadrosCapturados = 0;
-        
-        //DEBEMOS LLAMAR imagen.release() para evitar LEAK. Sin embargo, necesitamos la imagen hasta que la procesemos,
-        //y ya que el procesamiento toma mas tiempo, empezamos a consumir memoria. 
-        //Por lo tanto, debemos mandar un cuadro imagen solo si ha un hilo disponible en el ejecutor.
-        int cores = Runtime.getRuntime().availableProcessors();
-        
+        //Cargamos el clasificador...
         //Abrimos el clasificador a ser usados por los hilos
-        CascadeClassifier clasificador;        
-
         String recurso = null;
         //recurso = directorio + "/recursos/hogcascades/hogcascade_pedestrians.xml";
         recurso = directorio + "/recursos/haarcascades/haarcascade_frontalface_alt_tree.xml"; //--> best so far
@@ -126,76 +110,116 @@ public class HiloProcesamientoCamara implements Runnable {
         clasificador = new CascadeClassifier(recurso);
         if(clasificador.empty()){
             System.out.println("Clasificador de caras no cargado... Saliendo del hilo de la cámara " + ipCamara);
-            return;
+            throw new FileNotFoundException("No se puedo cargar el clasificado Haar " + recurso);
         }
         
+         //Para camaras Samsung SNV-7080R
+        String url = "rtsp://" + this.ipCamara + "/profile2/media.smp";
+        this.camara = new Camara(url);
         
-        Mat imagen = null;
-        int i = 0;
-        
-        for(i = 0; i < 100; ){
-        //while(true){
-            try{
-                int activos = ejecutor.getActiveCount();
-                /*if(cuadrosCapturados == 0){
-                   camara.abrirCamara(); 
-                }*/
-
-                //Solo si hay CPU disponible leemos la imagen, caso constrario debemos mantenerla en memoria
-                //y si el procesamiento es mas lento que la tasa de lectura de imagenes, eventualmente nos
-                //quedaremos sin memoria.
-                //synchronized(mutexContadorHilosActivos){
-                    //if( hilosActivos < cores){
-                        hilosActivos++;
-                        //System.out.println(String.format("Activos: %s, i: %s, tamaño cola: %d", activos, i, ejecutor.getQueue().size()));
-
-                        imagen = camara.obtenerCuadro();
-                                            ProcesamientoImagenes faceDt = new ProcesamientoImagenes(imagen, i, servidorImagenes, clienteDeteccionCaras, nombreGaleria, directorio, directorioCamara,
-                                                                                probabilidad, this, ipCamara, clasificador);
-                        ejecutor.execute(faceDt);
-                        i++;
-                        cuadrosCapturados++;
-                    //}
-                //}
-            }
-            catch(RejectedExecutionException e){
-                //System.out.println("Buffer lleno. Descartando el cuadro " + i);
-                imagen.release();
-            }
-            
-            
-            //TODO: si se detecto persona,
-            synchronized(this.mutex){
-                if(personaDetectada){
-                    //TODO: realizar accion... Cerrar cámara??
-                    Bitacora log_deteccion = new Bitacora(); 
-                    log_deteccion.registarEnBitacora("Log_camara_" + ipCamara,  directorio + "Log_camara_" + ipCamara + ".txt", "Se detecto a " + persona + " en el/la " + ubicacion, Bitacora.INFO);
-                    this.personaDetectada = false;
-                    this.persona = "";
-                    System.exit(-1);
-                }
-            }
-            
-            /*if(cuadrosCapturados == 20){
-                this.camara.cerrarCamara();
-                try{
-                    Thread.sleep(1000);
-                }
-                catch(InterruptedException e){
-                    System.out.println("Hilo de camara " + this.ipCamara + " se levanto antes de tiempo");
-                }
-            }*/
+        //No se pudo abrir la camara...
+        if(camara == null){
+           //TODO 
+            Bitacora log = new Bitacora();
+            log.registarEnBitacora("errores_camara", "errores_camara.txt", "No se pudo abrir la camara con URL " + this.ipCamara + " ubicada en " + this.ubicacion, Bitacora.SEVERE);
+            this.camaraActiva = false;
+            throw new FileNotFoundException("No se puedo abrir la URL de la camara: " + url);
         }
+    }
+    
+    @Override
+    public void run(){
         
-        //
-        while(hilosActivos != 0){
+        this.notificarFinDeteccion = false;
+        
+        //Esperamos a que nos notifiquen para inicar la deteccion.
+        while(true){
             
             try{
-                Thread.sleep(500);
+                while(!deteccionEnCurso){
+                    synchronized(monNotificadorInicioDetection){
+                        monNotificadorInicioDetection.wait();
+                    }
+                }
             }
             catch(InterruptedException e){
-                System.out.println("duh!");
+                System.exit(-1);
+            }
+            
+            this.deteccionEnCurso = false;
+            
+            
+            //Camara esta activa.
+            synchronized(monNotificadorDeteccion){
+                this.camaraActiva = true;
+            }
+            
+            this.persona = null;
+
+            //rtsp://192.168.137.172/profile2/media.smp
+            camara.abrirCamara();      //empezara recibir datos.
+
+            if(!this.camara.camaraAbierta()){
+                Bitacora log = new Bitacora();
+                log.registarEnBitacora("errores", "errores.txt", "No se pudo abrir la cámara " + "rtsp://" + this.ipCamara + "/profile2/media.smp", Bitacora.SEVERE);
+            }
+
+            //DEBEMOS LLAMAR imagen.release() para evitar LEAK. Sin embargo, necesitamos la imagen hasta que la procesemos,
+            //y ya que el procesamiento toma mas tiempo, empezamos a consumir memoria. 
+            //Por lo tanto, debemos mandar un cuadro imagen solo si ha un hilo disponible en el ejecutor.
+
+            Mat imagen = null;
+            int i = 0;
+
+            //Grabamos 5 segundos...
+            for(i = 0; i < 100; i++){
+                try{
+
+                    //Solo si hay CPU disponible leemos la imagen, caso constrario debemos mantenerla en memoria
+                    //y si el procesamiento es mas lento que la tasa de lectura de imagenes, eventualmente nos
+                    //quedaremos sin memoria.
+                    imagen = camara.obtenerCuadro();
+                                        ProcesamientoImagenes faceDt = new ProcesamientoImagenes(imagen, i, servidorImagenes, clienteDeteccionCaras, nombreGaleria, directorio, directorioCamara,
+                                                                            probabilidad, this, ipCamara, this.clasificador);
+                    ejecutor.execute(faceDt);
+                }
+                catch(RejectedExecutionException e){
+                    imagen.release();
+                }
+
+                //TODO: si se detecto persona,
+                synchronized(this.mutex){
+                    if(personaDetectada){
+                        Bitacora log_deteccion = new Bitacora(); 
+                        log_deteccion.registarEnBitacora("Log_camara_" + ipCamara,  directorio + "Log_camara_" + ipCamara + ".txt", "Se detecto a " + persona + " en el/la " + ubicacion, Bitacora.INFO);
+                        this.camara.cerrarCamara();
+                        this.camaraActiva = false;
+                        return;
+                    }
+                }
+            }
+            this.camara.cerrarCamara();
+            
+            synchronized(monNotificadorDeteccion){
+                notificarFinDeteccion = true;
+                monNotificadorDeteccion.notifyAll();
             }
         }
     } 
+    
+    /**
+     * 
+     * @return 
+     */
+    public String obtenerPersonaDetectada(){
+        return this.persona;
+    }
+    
+    public boolean hiloActivo(){
+        return this.camaraActiva;
+    }
+    
+    public int id(){
+        return idHiloCamara;
+    }
 }

@@ -9,3 +9,4 @@ directorio-de-trabajo = C:/Users/Eduardo/Documents/NetBeansProjects/FaceDetectio
 ip-camaras = 172.16.5.10;172.16.5.9;172.16.5.12;172.16.5.11;172.16.5.7;172.16.5.8
 ubicacion-camaras  = biblioteca_alta;biblioteca_baja;studio;cocina;pasillo_alto;pasillo_bajo
 probabilidad-reconocimiento-cara = 0.6
+puerto-ftp = 21

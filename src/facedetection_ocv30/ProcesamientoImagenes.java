@@ -13,7 +13,6 @@ import org.opencv.core.Size;
 import org.opencv.imgcodecs.*;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
-import org.opencv.objdetect.Objdetect;
 
 /**
  *

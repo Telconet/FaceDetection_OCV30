@@ -14,10 +14,13 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.opencv.core.*;
 
 
@@ -34,23 +37,7 @@ public class FaceDetection_OCV30{
     public static void main(String[] args) throws IOException, DbxException, InterruptedException, IllegalAccessException {
         
         int cores = Runtime.getRuntime().availableProcessors();
-        
-        //Socket...
-        InetAddress addr = InetAddress.getByName("0.0.0.0");
-        try{
-            ServerSocket socketServidor = new ServerSocket(21, 50, addr); 
-            boolean escuchar = true;
-
-            //Aceptamos conexiones de clientes...
-            while(escuchar){
-               new KKServerThread(socketServidor.accept()).start();
-            }
-        }
-        catch(IOException ex){
-            ex.printStackTrace();
-        }
-
-        
+                
         //Primero verficamos que exista el archivo de configuracion
         if(args.length == 0){
             System.out.println("No encontramos la ruta del archivo de configuración. ¿Olvido agregarla como argumento?");
@@ -144,34 +131,66 @@ public class FaceDetection_OCV30{
         }
         
         //Pool de hilos...
-        BlockingQueue<Runnable> colaDeEspera = new LinkedBlockingQueue<>(100);         //Queue debe ser limitada
+        BlockingQueue<Runnable> colaDeEspera = new LinkedBlockingQueue<>(100*ipCamaras.length);         //Queue debe ser limitada  (5 segundos por cámara...)
         ThreadPoolExecutor ejecutor = new ThreadPoolExecutor(cores, cores, 10, TimeUnit.SECONDS, colaDeEspera);
 
         //new ThreadPoolExecutor
         //Hilos de reconocimiento.
-        ArrayList<Thread> hilosCamaras = new ArrayList<>();
+        //ArrayList<Thread> hilosCamaras = new ArrayList<>();
+        HashMap<String, HiloProcesamientoCamara> hilosCamaras = new HashMap<>();
         
         long millis_before = System.currentTimeMillis();
         
         //Creamos un hilo por camara...
         for(int i = 0; i < ipCamaras.length; i++){
-            
-            
-            HiloProcesamientoCamara hiloCamara = new HiloProcesamientoCamara(ipCamaras[i], directorioTrabajo.trim(),
-                    nombreGaleria, probabilidad, servidorImagenes, clienteDeteccionCaras, ubicacionCamaras[i], ejecutor, i);
-            
-            //Creamos hilo e iniciamos reconocimiento
-            Thread hilo = new Thread(hiloCamara);
-            hilosCamaras.add(hilo);
-            hilo.start();    
+            try {
+                HiloProcesamientoCamara hiloCamara = new HiloProcesamientoCamara(ipCamaras[i], directorioTrabajo.trim(),
+                        nombreGaleria, probabilidad, servidorImagenes, clienteDeteccionCaras, ubicacionCamaras[i], ejecutor, i);
+                
+     
+                hilosCamaras.put(ipCamaras[i], hiloCamara);
+
+            } catch (Exception ex) {
+                Logger.getLogger(FaceDetection_OCV30.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
         }  
         
-        for(int i = 0; i < hilosCamaras.size(); i++){
-            Thread tmp = hilosCamaras.get(i);
-            tmp.join();
+        //Puerto a escuchar
+        int puerto = 21;
+        try{
+            puerto = Integer.parseInt(config.obtenerParametro(Configuracion.PUERTO_FTP));
+        }
+        catch(NumberFormatException e){
+            System.out.println("Puerto FTP invalido. La aplicacion se cerrará");
+            System.exit(-1);
         }
         
+        //Empezamos a escuchar las solicitudes FTP, que para nosostros significan que 
+        //se ha detectado movimiento.
+        //Socket...
+        //Escuchar to
+        InetAddress addr = InetAddress.getByName("0.0.0.0");
+        try{
+            ServerSocket socketServidor = new ServerSocket(puerto, 50, addr); 
+            boolean escuchar = true;
+
+            //Aceptamos conexiones de clientes...
+            while(escuchar){
+               new KKServerThread(socketServidor.accept(), hilosCamaras).start();
+            }
+        }
+        catch(IOException ex){
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+        
+        
+        //Espramos a finalizar??
+       /* for(int i = 0; i < hilosCamaras.size(); i++){
+            Thread tmp = hilosCamaras.get(i);
+            tmp.join();
+        }*/
         
         //tiempo...
         long millis_after = System.currentTimeMillis();

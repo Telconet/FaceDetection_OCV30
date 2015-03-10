@@ -25,8 +25,7 @@ public class Configuracion {
     public static final String IP_CAMARAS = "ip-camaras";
     public static final String UBICACION_CAMARAS = "ubicacion-camaras";
     public static final String PROBABILIDAD_RECON = "probabilidad-reconocimiento-cara";
-    //public static final String 
-    
+    public static final String PUERTO_FTP = "puerto-ftp";   
     
     //Propiedades donde almacenaremos los datos leidos del
     //archivo de texto
